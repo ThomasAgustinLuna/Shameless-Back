@@ -1,20 +1,20 @@
 package com.agenciaTurismo.Hackacode.entities;
 
 import jakarta.persistence.Entity;
-import java.util.Date;;
+import java.util.Date;
 
 @Entity
-public class Excursion extends Product{
-    
+public class Excursion extends Product {
+
     private String destination;
     private Double duration;
-
 
     public Excursion() {
     }
 
-    public Excursion(String destination, Double duration, String productCode, String name, String descript, Date startDate, Double price, boolean status) {
-        super(productCode, name, descript, startDate, price, status); 
+    public Excursion(String destination, Double duration, String productCode, String name, String descript,
+            Date startDate, Double price, boolean status) {
+        super(productCode, name, descript, startDate, price, status);
         this.destination = destination;
         this.duration = duration;
     }
@@ -34,6 +34,5 @@ public class Excursion extends Product{
     public void setDuration(Double duration) {
         this.duration = duration;
     }
-
 
 }

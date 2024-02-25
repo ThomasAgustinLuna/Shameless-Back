@@ -1,10 +1,11 @@
 package com.agenciaTurismo.Hackacode.entities;
 
 import java.util.Date;
-
+import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
+@MappedSuperclass
 public abstract class User {
 
     protected String name;
@@ -20,12 +21,11 @@ public abstract class User {
     protected Date lastInteract;
     protected boolean status;
 
-
     public User() {
     }
 
-
-    public User(String name, String surname, String adress, Integer dni, Date birthDate, String nationality, Long phoneNumb, String email, Date lastInteract, boolean status) {
+    public User(String name, String surname, String adress, Integer dni, Date birthDate, String nationality,
+            Long phoneNumb, String email, Date lastInteract, boolean status) {
         this.name = name;
         this.surname = surname;
         this.adress = adress;
@@ -37,7 +37,6 @@ public abstract class User {
         this.lastInteract = lastInteract;
         this.status = status;
     }
-    
 
     public String getName() {
         return this.name;
@@ -122,8 +121,5 @@ public abstract class User {
     public void setStatus(boolean status) {
         this.status = status;
     }
-
-
-
 
 }

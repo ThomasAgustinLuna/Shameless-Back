@@ -21,14 +21,14 @@ public class Sale {
     private Employee employee;
     private boolean status;
     private PaymentType paymentType;
+    @ManyToOne
     private TouristPackage productPackage;
-    
 
     public Sale() {
     }
 
-
-    public Sale(Long saleNumber, Date saleDate, Client client, Employee employee, boolean status, PaymentType paymentType, TouristPackage productPackage) {
+    public Sale(Long saleNumber, Date saleDate, Client client, Employee employee, boolean status,
+            PaymentType paymentType, TouristPackage productPackage) {
         this.saleNumber = saleNumber;
         this.saleDate = saleDate;
         this.client = client;
@@ -37,7 +37,6 @@ public class Sale {
         this.paymentType = paymentType;
         this.productPackage = productPackage;
     }
-
 
     public Long getSaleNumber() {
         return this.saleNumber;
@@ -98,6 +97,5 @@ public class Sale {
     public void setProductPackage(TouristPackage productPackage) {
         this.productPackage = productPackage;
     }
-
 
 }

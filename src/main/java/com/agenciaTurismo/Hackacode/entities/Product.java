@@ -1,16 +1,19 @@
 package com.agenciaTurismo.Hackacode.entities;
 
 import java.util.Date;
-
 import org.hibernate.annotations.GenericGenerator;
-
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Product {
-    
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -22,11 +25,8 @@ public abstract class Product {
     protected Double price;
     protected boolean status;
 
-
-
     public Product() {
     }
-   
 
     public Product(String productCode, String name, String descript, Date startDate, Double price, boolean status) {
         this.productCode = productCode;
@@ -36,8 +36,7 @@ public abstract class Product {
         this.price = price;
         this.status = status;
     }
-    
-    
+
     public String getProductCode() {
         return this.productCode;
     }
@@ -82,15 +81,8 @@ public abstract class Product {
         return this.status;
     }
 
-    public boolean getStatus() {
-        return this.status;
-    }
-
     public void setStatus(boolean status) {
         this.status = status;
     }
-    
-
-    
 
 }
