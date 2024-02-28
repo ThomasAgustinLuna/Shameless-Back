@@ -24,7 +24,7 @@ public class Employee extends User {
     }
 
     public Employee(String employeeId, PositionType position, Double salary, Sale sale, String name, String surname,
-            String adress, Integer dni, Date birthDate, String nationality, Long phoneNumb, String email,
+            String adress, Integer dni, Date birthDate, String nationality, String phoneNumb, String email,
             Date lastInteract, boolean status) {
         super(name, surname, adress, dni, birthDate, nationality, phoneNumb, email, lastInteract, status);
         this.employeeId = employeeId;

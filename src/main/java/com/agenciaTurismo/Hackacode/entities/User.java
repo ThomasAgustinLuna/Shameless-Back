@@ -15,7 +15,7 @@ public abstract class User {
     @Temporal(TemporalType.DATE)
     protected Date birthDate;
     protected String nationality;
-    protected Long phoneNumb;
+    protected String phoneNumb;
     protected String email;
     @Temporal(TemporalType.DATE)
     protected Date lastInteract;
@@ -25,7 +25,7 @@ public abstract class User {
     }
 
     public User(String name, String surname, String adress, Integer dni, Date birthDate, String nationality,
-            Long phoneNumb, String email, Date lastInteract, boolean status) {
+            String phoneNumb, String email, Date lastInteract, boolean status) {
         this.name = name;
         this.surname = surname;
         this.adress = adress;
@@ -86,11 +86,11 @@ public abstract class User {
         this.nationality = nationality;
     }
 
-    public Long getPhoneNumb() {
+    public String getPhoneNumb() {
         return this.phoneNumb;
     }
 
-    public void setPhoneNumb(Long phoneNumb) {
+    public void setPhoneNumb(String phoneNumb) {
         this.phoneNumb = phoneNumb;
     }
 

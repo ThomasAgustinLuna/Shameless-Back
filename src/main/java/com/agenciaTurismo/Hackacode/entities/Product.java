@@ -2,6 +2,8 @@ package com.agenciaTurismo.Hackacode.entities;
 
 import java.util.Date;
 import org.hibernate.annotations.GenericGenerator;
+
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -12,6 +14,7 @@ import jakarta.persistence.TemporalType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "dtype")
 public abstract class Product {
 
     @Id

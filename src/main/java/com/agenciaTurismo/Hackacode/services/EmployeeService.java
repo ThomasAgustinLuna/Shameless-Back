@@ -20,7 +20,7 @@ public class EmployeeService {
 
     @Transactional
     public void createEmployee(String name, String surname, String adress, Integer dni, Date birthDate,
-            String nationality, Long phoneNumber, String email, PositionType position, Double salary)
+            String nationality, String phoneNumber, String email, PositionType position, Double salary)
             throws MyException {
 
         validate(name, surname, adress, dni, birthDate, nationality, phoneNumber, email);
@@ -52,7 +52,7 @@ public class EmployeeService {
     }
 
     public void modifyEmployee(String employeeId, String name, String surname, String adress, Integer dni,
-            Date bithDate, String nationality, Long phoneNumber, String email, PositionType position, Double salary)
+            Date bithDate, String nationality, String phoneNumber, String email, PositionType position, Double salary)
             throws MyException {
 
         if (employeeId == null) {
@@ -85,7 +85,7 @@ public class EmployeeService {
     }
 
     private void validate(String name, String surname, String adress, Integer dni, Date birthDate, String nationality,
-            Long phoneNumber, String email) throws MyException {
+            String phoneNumber, String email) throws MyException {
 
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo");
@@ -105,12 +105,13 @@ public class EmployeeService {
         if (nationality == null || nationality.isEmpty()) {
             throw new MyException("La Nacionalidad no puede ser nula");
         }
-        if (phoneNumber == null) {
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
             throw new MyException("El numero de telefono no puede ser nulo");
         }
         if (email == null || email.isEmpty()) {
             throw new MyException("El email no puede ser nulo");
         }
+                                           
 
     }
 

@@ -23,7 +23,7 @@ public class Client extends User {
     }
 
     public Client(String clientId, Sale sale, String name, String surname, String adress, Integer dni, Date birthDate,
-            String nationality, Long phoneNumb, String email, Date lastInteract, boolean status) {
+            String nationality, String phoneNumb, String email, Date lastInteract, boolean status) {
         super(name, surname, adress, dni, birthDate, nationality, phoneNumb, email, lastInteract, status);
         this.clientId = clientId;
         this.milles = 100;

@@ -23,19 +23,16 @@ public class ExcursionService {
         validate(name, descript, startDate, price, destination, duration);
 
         Excursion excursion = new Excursion();
-        if (excursion.isStatus()) {
-            excursion.setName(name);
-            excursion.setDescript(descript);
-            excursion.setStartDate(startDate);
-            excursion.setPrice(price);
-            excursion.setDestination(destination);
-            excursion.setDuration(duration);
-            excursion.setStatus(true);
 
-            excursionRepository.save(excursion);
-        } else {
-            throw new MyException("No hay registro de esa excursion");
-        }
+        excursion.setName(name);
+        excursion.setDescript(descript);
+        excursion.setStartDate(startDate);
+        excursion.setPrice(price);
+        excursion.setDestination(destination);
+        excursion.setDuration(duration);
+        excursion.setStatus(true);
+
+        excursionRepository.save(excursion);
 
     }
 
@@ -57,14 +54,18 @@ public class ExcursionService {
 
         if (ans.isPresent()) {
             Excursion excursion = ans.get();
-            excursion.setName(name);
-            excursion.setDescript(descript);
-            excursion.setStartDate(startDate);
-            excursion.setPrice(price);
-            excursion.setDestination(destination);
-            excursion.setDuration(duration);
+            if (excursion.isStatus()) {
+                excursion.setName(name);
+                excursion.setDescript(descript);
+                excursion.setStartDate(startDate);
+                excursion.setPrice(price);
+                excursion.setDestination(destination);
+                excursion.setDuration(duration);
 
-            excursionRepository.save(excursion);
+                excursionRepository.save(excursion);
+            } else {
+                throw new MyException("No hay registro de esa excursion");
+            }
         }
     }
 

@@ -19,7 +19,7 @@ public class ClientService {
 
     @Transactional
     public void createClient(String name, String surname, String adress, Integer dni, Date birthDate,
-            String nationality, Long phoneNumber, String email) throws MyException {
+            String nationality, String phoneNumber, String email) throws MyException {
 
         validate(name, surname, adress, dni, birthDate, nationality, phoneNumber, email);
         Client client = new Client();
@@ -47,12 +47,13 @@ public class ClientService {
     }
 
     public void modifyClient(String clientId, String name, String surname, String adress, Integer dni, Date birthDate,
-            String nationality, Long phoneNumber, String email) throws MyException {
+            String nationality, String phoneNumber, String email) throws MyException {
 
         if (clientId == null) {
             throw new MyException("El id de cliente no puede ser nulo");
         }
         validate(name, surname, adress, dni, birthDate, nationality, phoneNumber, email);
+        
         Optional<Client> ans = clientRepository.findById(clientId);
 
         if (ans.isPresent()) {
@@ -77,7 +78,7 @@ public class ClientService {
     }
 
     private void validate(String name, String surname, String adress, Integer dni, Date birthDate, String nationality,
-            Long phoneNumber, String email) throws MyException {
+            String phoneNumber, String email) throws MyException {
 
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo");
@@ -97,7 +98,7 @@ public class ClientService {
         if (nationality == null || nationality.isEmpty()) {
             throw new MyException("La Nacionalidad no puede ser nula");
         }
-        if (phoneNumber == null) {
+        if (phoneNumber == null || phoneNumber.isEmpty()) {
             throw new MyException("El numero de telefono no puede ser nulo");
         }
         if (email == null || email.isEmpty()) {
