@@ -2,7 +2,6 @@ package com.agenciaTurismo.Hackacode.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.agenciaTurismo.Hackacode.entities.Product;
 import com.agenciaTurismo.Hackacode.entities.TouristPackage;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
@@ -60,6 +59,21 @@ public class TouristPackageService {
                 throw new MyException("No hay registro de ese paquete");
             }
 
+        }
+
+    }
+
+    public void deleteTouristPackage(String productCode) throws MyException {
+        if (productCode == null) {
+            throw new MyException("El codigo de producto no puede ser nulo");
+        }
+        Optional<TouristPackage> ans = touristPackageRepository.findById(productCode);
+
+        if (ans.isPresent()) {
+            TouristPackage touristPackage= ans.get();
+            if (touristPackage.isStatus()) {
+                touristPackage.setStatus(false);
+            }
         }
 
     }

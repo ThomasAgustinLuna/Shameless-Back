@@ -70,6 +70,21 @@ public class TicketsService {
         }
     }
 
+    public void deleteTickets(String productCode) throws MyException {
+        if (productCode == null) {
+            throw new MyException("El codigo de producto no puede ser nulo");
+        }
+        Optional<Tickets> ans = ticketsRepository.findById(productCode);
+
+        if (ans.isPresent()) {
+            Tickets tickets= ans.get();
+            if (tickets.isStatus()) {
+                tickets.setStatus(false);
+            }
+        }
+
+    }
+
     private void validate(String name, String descript, Date startDate, Double price, TicketType ticketType,
             String origin) throws MyException {
         if (name == null || name.isEmpty()) {

@@ -69,6 +69,21 @@ public class ExcursionService {
         }
     }
 
+    public void deleteExcursion(String productCode) throws MyException {
+        if (productCode == null) {
+            throw new MyException("El codigo de producto no puede ser nulo");
+        }
+        Optional<Excursion> ans = excursionRepository.findById(productCode);
+
+        if (ans.isPresent()) {
+            Excursion excursion= ans.get();
+            if (excursion.isStatus()) {
+                excursion.setStatus(false);
+            }
+        }
+
+    }
+
     private void validate(String name, String descript, Date startDate, Double price, String destination,
             Double duration) throws MyException {
         if (name == null || name.isEmpty()) {

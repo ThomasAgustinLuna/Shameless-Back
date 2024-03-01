@@ -121,4 +121,19 @@ public class SaleService {
         }
     }
 
+    public void deleteSale(Long saleNumber) throws MyException {
+        if (saleNumber == null) {
+            throw new MyException("El numero de venta no puede ser nulo");
+        }
+        Optional<Sale> ans = saleRepository.findById(saleNumber);
+
+        if (ans.isPresent()) {
+            Sale sale= ans.get();
+            if (sale.isStatus()) {
+                sale.setStatus(false);
+            }
+        }
+
+    }
+
 }

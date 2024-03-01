@@ -69,6 +69,21 @@ public class HotelPerNightService {
         }
     }
 
+    public void deleteHotelPerNight(String productCode) throws MyException {
+        if (productCode == null) {
+            throw new MyException("El codigo de producto no puede ser nulo");
+        }
+        Optional<HotelPerNight> ans = hotelPerNightRepository.findById(productCode);
+
+        if (ans.isPresent()) {
+            HotelPerNight hotelPerNight= ans.get();
+            if (hotelPerNight.isStatus()) {
+                hotelPerNight.setStatus(false);
+            }
+        }
+
+    }
+
     private void validate(String name, String descript, Date startDate, Double price, String ubication,
             Integer numbOfRooms) throws MyException {
         if (name == null || name.isEmpty()) {

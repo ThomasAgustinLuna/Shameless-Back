@@ -84,6 +84,21 @@ public class EmployeeService {
 
     }
 
+    public void deleteEmployee(String employeeId) throws MyException {
+        if (employeeId == null) {
+            throw new MyException("El Id no puede ser nulo");
+        }
+        Optional<Employee> ans = employeeRepository.findById(employeeId);
+
+        if (ans.isPresent()) {
+            Employee employee= ans.get();
+            if (employee.isStatus()) {
+                employee.setStatus(false);
+            }
+        }
+
+    }
+
     private void validate(String name, String surname, String adress, Integer dni, Date birthDate, String nationality,
             String phoneNumber, String email) throws MyException {
 

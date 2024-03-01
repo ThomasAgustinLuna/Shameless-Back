@@ -50,7 +50,7 @@ public class CarRentalService {
             throw new MyException("El codigo de producto no puede ser nulo");
         }
         validate(name, descript, startDate, price, carType, deadlineDate);
-        
+
         Optional<CarRental> ans = carRentalRepository.findById(productCode);
 
         if (ans.isPresent()) {
@@ -69,6 +69,21 @@ public class CarRentalService {
             }
 
         }
+    }
+
+    public void deleteCarRental(String productCode) throws MyException {
+        if (productCode == null) {
+            throw new MyException("El codigo de producto no puede ser nulo");
+        }
+        Optional<CarRental> ans = carRentalRepository.findById(productCode);
+
+        if (ans.isPresent()) {
+            CarRental carRental= ans.get();
+            if (carRental.isStatus()) {
+                carRental.setStatus(false);
+            }
+        }
+
     }
 
     private void validate(String name, String descript, Date startDate, Double price, String carType, Date deadlineDate)

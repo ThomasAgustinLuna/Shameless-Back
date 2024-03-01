@@ -77,6 +77,21 @@ public class ClientService {
 
     }
 
+    public void deleteClient(String clientId) throws MyException {
+        if (clientId == null) {
+            throw new MyException("El Id no puede ser nulo");
+        }
+        Optional<Client> ans = clientRepository.findById(clientId);
+
+        if (ans.isPresent()) {
+            Client client= ans.get();
+            if (client.isStatus()) {
+                client.setStatus(false);
+            }
+        }
+
+    }
+
     private void validate(String name, String surname, String adress, Integer dni, Date birthDate, String nationality,
             String phoneNumber, String email) throws MyException {
 
