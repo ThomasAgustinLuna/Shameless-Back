@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaft.org" lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -33,6 +33,14 @@
       <label for="inputAddress2" class="form-label">Precio</label>
       <input type="number" id="precio" name="price" step="any"><br>
     </div>
+    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError">
+      <div class="card-body">
+        <h5 class="card-title">Error !!!</h5>
+        <p class="card-text" th:text="${error}"></p>
+
+      </div>
+    </div>
+    
     <div class="col-md-4">
       <label for="inputCity" class="form-label">Tipo de Auto</label>
       <input type="text" class="form-control" id="inputCity" name="carType">
@@ -45,7 +53,7 @@
     <button type="submit" class="btn btn-primary">Enviar</button>
     </div>
   </form>
- 
+
 
 
 

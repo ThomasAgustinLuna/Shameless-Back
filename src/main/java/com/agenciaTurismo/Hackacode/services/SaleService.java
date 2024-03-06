@@ -136,4 +136,8 @@ public class SaleService {
 
     }
 
+    public void MoneyCount(){
+        
+    }
+
 }
