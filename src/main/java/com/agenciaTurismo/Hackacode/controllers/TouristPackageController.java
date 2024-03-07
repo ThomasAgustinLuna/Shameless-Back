@@ -16,7 +16,7 @@ import com.agenciaTurismo.Hackacode.services.TouristPackageService;
 
 @Controller
 @RequestMapping("/touristpackage")
-public class TouristPackage {
+public class TouristPackageController {
 
     @Autowired
     private TouristPackageService touristPackageService;

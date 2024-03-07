@@ -3,15 +3,14 @@ package com.agenciaTurismo.Hackacode.controllers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import com.agenciaTurismo.Hackacode.enums.PositionType;
+import com.agenciaTurismo.Hackacode.dtos.EmployeeDto;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.EmployeeService;
 
@@ -25,38 +24,38 @@ public class EmployeeController {
     @GetMapping("/register")
     public String register() {
 
-        return "employee_form.html";
+        return "redirect:http://localhost:5173/admin/employee";
     }
 
     @PostMapping("/registry")
-    public String registry(@RequestParam String name, @RequestParam String surname, @RequestParam String adress,
-            @RequestParam(required = false) Integer dni, @RequestParam String birthDate,
-            @RequestParam String nationality, @RequestParam String phoneNumber, @RequestParam String email,
-            @RequestParam PositionType position, @RequestParam(required = false) Double salary)throws MyException {
+    public String registry(@RequestBody EmployeeDto employeeDto, ModelMap model) throws MyException {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         try {
 
-            Date birthDate2 = dateFormat.parse(birthDate);
+            Date birthDate2 = dateFormat.parse(employeeDto.getBirthDate());
 
             try {
-                emEmployeeService.createEmployee(name, surname, adress, dni, birthDate2, nationality, phoneNumber,
-                        email, position, salary);
+                emEmployeeService.createEmployee(employeeDto.getName(), employeeDto.getSurname(),
+                        employeeDto.getAdress(), employeeDto.getDni(), birthDate2, employeeDto.getNationality(),
+                        employeeDto.getEmail(),
+                        employeeDto.getPhoneNumber(), employeeDto.getPosition(), employeeDto.getSalary());
+                model.put("exito", "El empleado fue cargado correctamente");
 
             } catch (MyException ex) {
 
-                Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
-                return "employee_form.html";
+                model.put("error", ex.getMessage());
+                return "redirect:http://localhost:5173/admin/employee";
             }
 
         } catch (ParseException e) {
             e.printStackTrace();
 
-            return "employee_form.html";
+            return "redirect:http://localhost:5173/admin/employee";
 
         }
 
-        return "index.html";
+        return "redirect:http://localhost:5173/index.html";
     }
 
 }

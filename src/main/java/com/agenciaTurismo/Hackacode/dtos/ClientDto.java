@@ -2,14 +2,14 @@ package com.agenciaTurismo.Hackacode.dtos;
 
 public class ClientDto {
 
-    String name;
-    String surname;
-    String adress;
-    Integer dni;
-    String birthDate;
-    String nationality;
-    String phoneNumber;
-    String email;
+    private String name;
+    private String surname;
+    private String adress;
+    private Integer dni;
+    private String birthDate;
+    private String nationality;
+    private String phoneNumber;
+    private String email;
 
 
     public ClientDto() {

@@ -20,7 +20,7 @@ public class CarRentalController {
     @Autowired
     private CarRentalService carRentalService;
 
-    // redirect:http://localhost:5173/index.html
+    
     @GetMapping("/register")
     public String register() {
         return "redirect:http://localhost:5173/admin/car-rental";
