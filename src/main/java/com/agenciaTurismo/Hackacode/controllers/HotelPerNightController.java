@@ -3,16 +3,14 @@ package com.agenciaTurismo.Hackacode.controllers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import com.agenciaTurismo.Hackacode.dtos.HotelPerNightDto;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.HotelPerNightService;
 
@@ -25,22 +23,23 @@ public class HotelPerNightController {
 
     @GetMapping("/register")
     public String register(){
-        return "hotel_per_night_form.html";
+        return "redirect:http://localhost:5173/admin/hotel-per-night";
     }
 
     @PostMapping("/registry")
-    public String registry(@RequestParam String name,@RequestParam String descript,@RequestParam String startDate,@RequestParam(required = false) Double price,@RequestParam String ubication ,@RequestParam(required = false) Integer numbOfRooms)throws MyException{
+    public String registry(@RequestBody HotelPerNightDto hotelPerNightDto, ModelMap model)throws MyException{
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
             
-            Date startDateObj = dateFormat.parse(startDate);
+            Date startDateObj = dateFormat.parse(hotelPerNightDto.getStartDate());
             
             try {
-                hotelPerNightService.createHotelPerNight(name, descript, startDateObj, price, ubication, numbOfRooms);
+                hotelPerNightService.createHotelPerNight(hotelPerNightDto.getName(), hotelPerNightDto.getDescript(), startDateObj, hotelPerNightDto.getPrice(), hotelPerNightDto.getUbication(), hotelPerNightDto.getNumbOfRooms());
+                model.put("exito", "El hotel fue cargado correctamente");
             } catch (MyException ex) {
-                Logger.getLogger(CarRentalController.class.getName()).log(Level.SEVERE,null,ex);
-                return "hotel_per_night_form.html";
+                model.put("error", ex.getMessage());
+                return "redirect:http://localhost:5173/admin/hotel-per-night";
             }
             
             
@@ -48,10 +47,10 @@ public class HotelPerNightController {
         } catch (ParseException e) {
             e.printStackTrace();
 
-            return "hotl_per_night_form.html";
+            return "redirect:http://localhost:5173/admin/hotel-per-night";
             
         }
-        return "index.html";
+        return "redirect:http://localhost:5173/admin";
     }
     
 }

@@ -3,14 +3,14 @@ package com.agenciaTurismo.Hackacode.controllers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.agenciaTurismo.Hackacode.dtos.EventTicketsDto;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.EventTicketsService;
 
@@ -23,22 +23,22 @@ public class EventTicketsController {
 
     @GetMapping("/register")
     public String register(){
-        return "event_tickets_form.html";
+        return "redirect:http://localhost:5173/admin/event-tickets";
     }
     @PostMapping("/registry")
-    public String registry (@RequestParam String name,@RequestParam String descript,@RequestParam String startDate,@RequestParam(required = false) Double price,@RequestParam String ubication ,@RequestParam(required = false) Double duration)throws MyException{
+    public String registry (@RequestBody EventTicketsDto eventTicketsDto, ModelMap model)throws MyException{
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         
         try {
             
-            Date startDateObj = dateFormat.parse(startDate);
+            Date startDateObj = dateFormat.parse(eventTicketsDto.getStartDate());
             
             try {
-                eventTicketsService.createEventTickets(name, descript, startDateObj, price, ubication, duration);
-                
+                eventTicketsService.createEventTickets(eventTicketsDto.getName(), eventTicketsDto.getDescript(), startDateObj, eventTicketsDto.getPrice(), eventTicketsDto.getUbication(), eventTicketsDto.getDuration());
+                model.put("exito", "El evento fue cargado correctamente");
             } catch (MyException ex) {
-                Logger.getLogger(CarRentalController.class.getName()).log(Level.SEVERE,null,ex);
-                return "event_tickets_form.html";
+                model.put("error", ex.getMessage());
+                return "redirect:http://localhost:5173/admin/event-tickets";
             }
             
             
@@ -46,11 +46,11 @@ public class EventTicketsController {
         } catch (ParseException e) {
             e.printStackTrace();
 
-            return "event_tickets_form.html";
+            return "redirect:http://localhost:5173/admin/event-tickets";
             
         }
         
-        return "index.html";
+        return "redirect:http://localhost:5173/admin";
     }
     
 }

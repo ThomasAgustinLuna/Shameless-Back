@@ -55,7 +55,7 @@ public class EmployeeController {
 
         }
 
-        return "redirect:http://localhost:5173/index.html";
+        return "redirect:http://localhost:5173/admin";
     }
 
 }

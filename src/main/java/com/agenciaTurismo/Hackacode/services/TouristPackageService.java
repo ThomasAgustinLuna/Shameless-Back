@@ -19,7 +19,7 @@ public class TouristPackageService {
     private TouristPackageRepository touristPackageRepository;
 
     @Transactional
-    public void createTouristPackage(String productCode, String name, String descript, Date startDate, Double price,
+    public void createTouristPackage(String name, String descript, Date startDate, Double price,
             List<Product> products) throws MyException {
 
         validate(name, descript, startDate, price, products);

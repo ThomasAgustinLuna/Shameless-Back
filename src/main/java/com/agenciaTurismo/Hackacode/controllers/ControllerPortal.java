@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 public class ControllerPortal {
-//redirect:http://localhost:5173/index.html
+
     @GetMapping("/")
     public String index() {
 
