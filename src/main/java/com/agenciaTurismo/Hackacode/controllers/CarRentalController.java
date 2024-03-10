@@ -1,16 +1,21 @@
 package com.agenciaTurismo.Hackacode.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.agenciaTurismo.Hackacode.dtos.CarRentalDto;
+import com.agenciaTurismo.Hackacode.entities.CarRental;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.CarRentalService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import java.util.Date;
+import java.util.List;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -23,7 +28,16 @@ public class CarRentalController {
     
     @GetMapping("/register")
     public String register() {
+        
+
         return "redirect:http://localhost:5173/admin/car-rental";
+    }
+
+    @GetMapping("/get-cars")
+    @ResponseBody
+    public ResponseEntity<List<CarRental>> getCars() {
+        List <CarRental> cars=carRentalService.ListCarRentals();
+        return ResponseEntity.ok(cars);
     }
 
     @PostMapping("/registry")
