@@ -20,8 +20,8 @@ public class TicketsService {
 
     @Transactional
     public void createTickets(String name, String descript, Date startDate, Double price, TicketType ticketType,
-            String origin) throws MyException {
-        validate(name, descript, startDate, price, ticketType, origin);
+            String origin, String destination) throws MyException {
+        validate(name, descript, startDate, price, ticketType, origin, destination);
 
         Tickets tickets = new Tickets();
         tickets.setName(name);
@@ -30,6 +30,7 @@ public class TicketsService {
         tickets.setPrice(price);
         tickets.setTicketType(ticketType);
         tickets.setOrigin(origin);
+        tickets.setDestination(destination);
         tickets.setStatus(true);
 
         ticketsRepository.save(tickets);
@@ -45,11 +46,11 @@ public class TicketsService {
     }
 
     public void modifyTickets(String productCode, String name, String descript, Date startDate, Double price,
-            TicketType ticketType, String origin) throws MyException {
+            TicketType ticketType, String origin, String destination) throws MyException {
         if (productCode == null) {
             throw new MyException("El codigo de producto no puede ser nulo");
         }
-        validate(name, descript, startDate, price, ticketType, origin);
+        validate(name, descript, startDate, price, ticketType, origin, destination);
         Optional<Tickets> ans = ticketsRepository.findById(productCode);
 
         if (ans.isPresent()) {
@@ -61,6 +62,7 @@ public class TicketsService {
                 tickets.setPrice(price);
                 tickets.setTicketType(ticketType);
                 tickets.setOrigin(origin);
+                tickets.setDestination(destination);
 
                 ticketsRepository.save(tickets);
             } else {
@@ -86,7 +88,7 @@ public class TicketsService {
     }
 
     private void validate(String name, String descript, Date startDate, Double price, TicketType ticketType,
-            String origin) throws MyException {
+            String origin, String destination) throws MyException {
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo");
         }
@@ -103,7 +105,10 @@ public class TicketsService {
             throw new MyException("El tipo de pasaje no puede ser nulo");
         }
         if (origin == null || origin.isEmpty()) {
-            throw new MyException("El origen no puede ser nulo");
+            throw new MyException("El origen no puede ser nulo o estar vacio");
+        }
+        if (origin == null || origin.isEmpty()) {
+            throw new MyException("El destino no puede ser nulo o estar vacio");
         }
 
     }

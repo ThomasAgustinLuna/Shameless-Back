@@ -19,8 +19,8 @@ public class ExcursionService {
 
     @Transactional
     public void createExcursion(String name, String descript, Date startDate, Double price, String destination,
-            Double duration) throws MyException {
-        validate(name, descript, startDate, price, destination, duration);
+            Double duration, String origin) throws MyException {
+        validate(name, descript, startDate, price, destination, duration, origin);
 
         Excursion excursion = new Excursion();
 
@@ -30,6 +30,7 @@ public class ExcursionService {
         excursion.setPrice(price);
         excursion.setDestination(destination);
         excursion.setDuration(duration);
+        excursion.setOrigin(origin);
         excursion.setStatus(true);
 
         excursionRepository.save(excursion);
@@ -45,11 +46,11 @@ public class ExcursionService {
     }
 
     public void modifyExcursion(String productCode, String name, String descript, Date startDate, Double price,
-            String destination, Double duration) throws MyException {
+            String destination, Double duration,String origin) throws MyException {
         if (productCode == null) {
             throw new MyException("El codigo de producto no puede ser nulo");
         }
-        validate(name, descript, startDate, price, destination, duration);
+        validate(name, descript, startDate, price, destination, duration,origin);
         Optional<Excursion> ans = excursionRepository.findById(productCode);
 
         if (ans.isPresent()) {
@@ -61,6 +62,7 @@ public class ExcursionService {
                 excursion.setPrice(price);
                 excursion.setDestination(destination);
                 excursion.setDuration(duration);
+                excursion.setOrigin(origin);
 
                 excursionRepository.save(excursion);
             } else {
@@ -85,7 +87,7 @@ public class ExcursionService {
     }
 
     private void validate(String name, String descript, Date startDate, Double price, String destination,
-            Double duration) throws MyException {
+            Double duration,String origin) throws MyException {
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo");
         }
@@ -103,6 +105,9 @@ public class ExcursionService {
         }
         if (duration == null || duration.isNaN()) {
             throw new MyException("La duracion no puede ser nula");
+        }
+        if (origin == null || origin.isEmpty()) {
+            throw new MyException("El tipo de origen no puede ser nulo");
         }
     }
 

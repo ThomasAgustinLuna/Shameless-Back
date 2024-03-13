@@ -7,18 +7,20 @@ public class ExcursionDto {
     private Double price;
     private String destination;
     private Double duration;
+    private String origin;
 
 
     public ExcursionDto() {
     }
 
-    public ExcursionDto(String name, String descript, String startDate, Double price, String destination, Double duration) {
+    public ExcursionDto(String name, String descript, String startDate, Double price, String destination, Double duration, String origin) {
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
         this.price = price;
         this.destination = destination;
         this.duration = duration;
+        this.origin = origin;
     }
 
 
@@ -68,6 +70,14 @@ public class ExcursionDto {
 
     public void setDuration(Double duration) {
         this.duration = duration;
+    }
+
+    public String getOrigin() {
+        return this.origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
     }
 
 

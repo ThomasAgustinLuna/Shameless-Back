@@ -9,6 +9,7 @@ public class TicketsDto {
     private Double price;
     private TicketType ticketType;
     private String origin;
+    private String destination;
 
 
     public TicketsDto() {
@@ -16,13 +17,14 @@ public class TicketsDto {
 
 
 
-    public TicketsDto(String name, String descript, String startDate, Double price, TicketType ticketType, String origin) {
+    public TicketsDto(String name, String descript, String startDate, Double price, TicketType ticketType, String origin, String destination) {
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
         this.price = price;
         this.ticketType = ticketType;
         this.origin = origin;
+        this.destination = destination;
     }
 
 
@@ -72,6 +74,15 @@ public class TicketsDto {
 
     public void setOrigin(String origin) {
         this.origin = origin;
+    }
+
+
+    public String getDestination() {
+        return this.destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
 }

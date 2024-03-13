@@ -8,15 +8,17 @@ public class Excursion extends Product {
 
     private String destination;
     private Double duration;
+    private String origin;
 
     public Excursion() {
     }
 
-    public Excursion(String destination, Double duration, String productCode, String name, String descript,
+    public Excursion(String destination, Double duration,String origin, String productCode, String name, String descript,
             Date startDate, Double price, boolean status) {
         super(productCode, name, descript, startDate, price, status);
         this.destination = destination;
         this.duration = duration;
+        this.origin = origin;
     }
 
     public String getDestination() {
@@ -34,5 +36,14 @@ public class Excursion extends Product {
     public void setDuration(Double duration) {
         this.duration = duration;
     }
+
+    public String getOrigin() {
+        return this.origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+    
 
 }

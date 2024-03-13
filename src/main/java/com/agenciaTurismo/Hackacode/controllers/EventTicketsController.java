@@ -3,14 +3,18 @@ package com.agenciaTurismo.Hackacode.controllers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.agenciaTurismo.Hackacode.dtos.EventTicketsDto;
+import com.agenciaTurismo.Hackacode.entities.EventTickets;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.EventTicketsService;
 
@@ -25,6 +29,14 @@ public class EventTicketsController {
     public String register(){
         return "redirect:http://localhost:5173/admin/event-tickets";
     }
+
+    @GetMapping("/get-event-tickets")
+    @ResponseBody
+    public ResponseEntity<List<EventTickets>> getCars() {
+        List <EventTickets> eventTickets=eventTicketsService.ListEventTickets();
+        return ResponseEntity.ok(eventTickets);
+    }
+
     @PostMapping("/registry")
     public String registry (@RequestBody EventTicketsDto eventTicketsDto, ModelMap model)throws MyException{
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

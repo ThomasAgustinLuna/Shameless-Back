@@ -3,14 +3,18 @@ package com.agenciaTurismo.Hackacode.controllers;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import com.agenciaTurismo.Hackacode.dtos.EmployeeDto;
+import com.agenciaTurismo.Hackacode.entities.Employee;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.EmployeeService;
 
@@ -19,12 +23,19 @@ import com.agenciaTurismo.Hackacode.services.EmployeeService;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService emEmployeeService;
+    private EmployeeService employeeService;
 
     @GetMapping("/register")
     public String register() {
 
         return "redirect:http://localhost:5173/admin/employee";
+    }
+
+    @GetMapping("/get-employees")
+    @ResponseBody
+    public ResponseEntity<List<Employee>> getCars() {
+        List <Employee> employees=employeeService.ListEmployees();
+        return ResponseEntity.ok(employees);
     }
 
     @PostMapping("/registry")
@@ -36,7 +47,7 @@ public class EmployeeController {
             Date birthDate2 = dateFormat.parse(employeeDto.getBirthDate());
 
             try {
-                emEmployeeService.createEmployee(employeeDto.getName(), employeeDto.getSurname(),
+                employeeService.createEmployee(employeeDto.getName(), employeeDto.getSurname(),
                         employeeDto.getAdress(), employeeDto.getDni(), birthDate2, employeeDto.getNationality(),
                         employeeDto.getEmail(),
                         employeeDto.getPhoneNumber(), employeeDto.getPosition(), employeeDto.getSalary());

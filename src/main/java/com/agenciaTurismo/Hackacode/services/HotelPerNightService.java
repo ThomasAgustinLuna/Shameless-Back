@@ -35,7 +35,7 @@ public class HotelPerNightService {
 
     }
 
-    public List<HotelPerNight> ListHotel() {
+    public List<HotelPerNight> ListHotels() {
         List<HotelPerNight> hotelPerNights = new ArrayList<>();
 
         hotelPerNights = hotelPerNightRepository.findByStatus(true);

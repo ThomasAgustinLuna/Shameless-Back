@@ -8,15 +8,17 @@ import com.agenciaTurismo.Hackacode.enums.TicketType;
 public class Tickets extends Product {
     private TicketType ticketType;
     private String origin;
+    private String destination;
 
     public Tickets() {
     }
 
-    public Tickets(TicketType ticketType, String origin, String productCode, String name, String descript,
+    public Tickets(TicketType ticketType, String origin,String destination, String productCode, String name, String descript,
             Date startDate, Double price, boolean status) {
         super(productCode, name, descript, startDate, price, status);
         this.ticketType = ticketType;
         this.origin = origin;
+        this.destination= destination;
     }
 
     public TicketType getTicketType() {
@@ -34,5 +36,15 @@ public class Tickets extends Product {
     public void setOrigin(String origin) {
         this.origin = origin;
     }
+
+
+    public String getDestination() {
+        return this.destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
+    }
+
 
 }
