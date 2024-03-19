@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import com.agenciaTurismo.Hackacode.entities.Sale;
+import java.util.Date;
 
 @Repository
 public interface SaleRepository extends JpaRepository<Sale, Long> {
@@ -15,4 +16,6 @@ public interface SaleRepository extends JpaRepository<Sale, Long> {
 
     @Query("SELECT s FROM Sale s WHERE s.status = :status")
     public List<Sale> findByStatus(@Param("status") boolean status);
+
+    List<Sale> findBySaleDateBetween(Date startDate, Date endDate);
 }

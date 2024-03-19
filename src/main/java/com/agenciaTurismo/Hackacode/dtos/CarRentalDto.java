@@ -1,6 +1,7 @@
 package com.agenciaTurismo.Hackacode.dtos;
 
 public class CarRentalDto {
+    private String productCode;
     private String name;
     private String descript;
     private String startDate;
@@ -13,15 +14,24 @@ public class CarRentalDto {
     }
 
 
-    public CarRentalDto(String name, String descript, String startDate, Double price, String carType, String deadlineDate) {
+    public CarRentalDto(String productCode, String name, String descript, String startDate, Double price, String carType, String deadlineDate) {
+        this.productCode= productCode;
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
         this.price = price;
         this.carType = carType;
         this.deadlineDate = deadlineDate;
+        
     }
 
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
 
     public String getName() {
         return this.name;

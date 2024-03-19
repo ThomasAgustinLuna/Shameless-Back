@@ -48,7 +48,7 @@ public class TouristPackageController {
             Date startDateObj = dateFormat.parse(touristPackageDto.getStartDate());
             
             try {
-                touristPackageService.createTouristPackage(touristPackageDto.getName(), touristPackageDto.getDescript(), startDateObj,touristPackageDto.getPrice(), null);
+                touristPackageService.createTouristPackage(touristPackageDto.getName(), touristPackageDto.getDescript(), startDateObj, null);
                 model.put("exito", "El paquete fue cargado correctamente");
             } catch (MyException ex) {
                 model.put("error", ex.getMessage());

@@ -1,6 +1,7 @@
 package com.agenciaTurismo.Hackacode.services;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -56,6 +57,7 @@ public class SaleService {
         sale.setClient(client);
         sale.setEmployee(employee);
         sale.setProductPackage(touristPackage);
+        sale.setSaleTotalPrice(percent(touristPackage, paymentType));
         sale.setStatus(true);
 
         saleRepository.save(sale);
@@ -128,7 +130,7 @@ public class SaleService {
         Optional<Sale> ans = saleRepository.findById(saleNumber);
 
         if (ans.isPresent()) {
-            Sale sale= ans.get();
+            Sale sale = ans.get();
             if (sale.isStatus()) {
                 sale.setStatus(false);
             }
@@ -136,8 +138,64 @@ public class SaleService {
 
     }
 
-    public void MoneyCount(){
+    private Double percent(TouristPackage touristPackage, PaymentType paymentType) {
         
+        switch (paymentType) {
+
+            case DEBITO:
+                return touristPackage.getPrice() - touristPackage.getPrice() * 0.03;
+            case CREDITO:
+                return touristPackage.getPrice() - touristPackage.getPrice() * 0.09;
+            case TRANSFERENCIA:
+                return touristPackage.getPrice() - touristPackage.getPrice() * 0.0245;
+            default:
+                return touristPackage.getPrice();
+        }
+    
+    }
+
+    public List<Sale> getDailySales() {
+
+        Date today = new Date();
+
+        Calendar startOfDay = Calendar.getInstance();
+        startOfDay.setTime(today);
+        startOfDay.set(Calendar.HOUR_OF_DAY, 0);
+        startOfDay.set(Calendar.MINUTE, 0);
+        startOfDay.set(Calendar.SECOND, 0);
+        startOfDay.set(Calendar.MILLISECOND, 0);
+
+        Calendar endOfDay = Calendar.getInstance();
+        endOfDay.setTime(today);
+        endOfDay.set(Calendar.HOUR_OF_DAY, 23);
+        endOfDay.set(Calendar.MINUTE, 59);
+        endOfDay.set(Calendar.SECOND, 59);
+        endOfDay.set(Calendar.MILLISECOND, 999);
+
+        List<Sale> dailySales = saleRepository.findBySaleDateBetween(startOfDay.getTime(), endOfDay.getTime());
+
+        return dailySales;
+    }
+
+    public List<Sale> getMonthlySales() {
+
+        Calendar startOfMonth = Calendar.getInstance();
+        startOfMonth.set(Calendar.DAY_OF_MONTH, 1);
+        startOfMonth.set(Calendar.HOUR_OF_DAY, 0);
+        startOfMonth.set(Calendar.MINUTE, 0);
+        startOfMonth.set(Calendar.SECOND, 0);
+        startOfMonth.set(Calendar.MILLISECOND, 0);
+
+        Calendar endOfMonth = Calendar.getInstance();
+        endOfMonth.set(Calendar.DAY_OF_MONTH, endOfMonth.getActualMaximum(Calendar.DAY_OF_MONTH));
+        endOfMonth.set(Calendar.HOUR_OF_DAY, 23);
+        endOfMonth.set(Calendar.MINUTE, 59);
+        endOfMonth.set(Calendar.SECOND, 59);
+        endOfMonth.set(Calendar.MILLISECOND, 999);
+
+        List<Sale> monthlySales = saleRepository.findBySaleDateBetween(startOfMonth.getTime(), endOfMonth.getTime());
+
+        return monthlySales;
     }
 
 }

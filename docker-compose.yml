@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  
+  shameless_back:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      MYSQL_HOST: jdbc:mysql://localhost:3307/agencia?createDatabaseIfNotExist=TRUE&serverTimezone=UTC
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+      MYSQL_DB: agencia  
+    restart: always  
+    depends_on:
+      - agencia_db
+  agencia_db:
+    image: mysql:8.0.33 
+    ports:
+      - "3307:3307"
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_DATABASE: agencia
+    restart: always  
+       

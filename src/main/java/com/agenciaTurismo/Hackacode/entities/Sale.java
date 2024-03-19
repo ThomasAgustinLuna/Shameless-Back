@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
 import java.util.Date;
 import com.agenciaTurismo.Hackacode.enums.PaymentType;
 
@@ -14,6 +17,7 @@ public class Sale {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long saleNumber;
+    @Temporal(TemporalType.DATE)
     private Date saleDate;
     @ManyToOne
     private Client client;
@@ -23,12 +27,13 @@ public class Sale {
     private PaymentType paymentType;
     @ManyToOne
     private TouristPackage productPackage;
+    private Double saleTotalPrice;
 
     public Sale() {
     }
 
     public Sale(Long saleNumber, Date saleDate, Client client, Employee employee, boolean status,
-            PaymentType paymentType, TouristPackage productPackage) {
+            PaymentType paymentType, TouristPackage productPackage, Double saleTotalPrice) {
         this.saleNumber = saleNumber;
         this.saleDate = saleDate;
         this.client = client;
@@ -36,6 +41,7 @@ public class Sale {
         this.status = status;
         this.paymentType = paymentType;
         this.productPackage = productPackage;
+        this.saleTotalPrice=saleTotalPrice;
     }
 
     public Long getSaleNumber() {
@@ -97,5 +103,14 @@ public class Sale {
     public void setProductPackage(TouristPackage productPackage) {
         this.productPackage = productPackage;
     }
+
+    public Double getSaleTotalPrice() {
+        return this.saleTotalPrice;
+    }
+
+    public void setSaleTotalPrice(Double saleTotalPrice) {
+        this.saleTotalPrice = saleTotalPrice;
+    }
+
 
 }

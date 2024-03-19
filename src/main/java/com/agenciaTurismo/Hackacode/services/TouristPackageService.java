@@ -19,12 +19,15 @@ public class TouristPackageService {
     private TouristPackageRepository touristPackageRepository;
 
     @Transactional
-    public void createTouristPackage(String name, String descript, Date startDate, Double price,
+    public void createTouristPackage(String name, String descript, Date startDate,
             List<Product> products) throws MyException {
 
-        validate(name, descript, startDate, price, products);
+        validate(name, descript, startDate, products);
         TouristPackage touristPackage = new TouristPackage();
-        touristPackage.setPrice(price);
+        touristPackage.setName(name);
+        touristPackage.setDescript(descript);
+        touristPackage.setStartDate(startDate);
+        touristPackage.setPrice(discount(products));
         touristPackage.setProducts(products);
         touristPackage.setStatus(true);
 
@@ -45,12 +48,15 @@ public class TouristPackageService {
         if (productCode == null) {
             throw new MyException("El codigo de producto no puede ser nulo");
         }
-        validate(name, descript, startDate, price, products);
+        validate(name, descript, startDate, products);
         Optional<TouristPackage> ans = touristPackageRepository.findById(productCode);
 
         if (ans.isPresent()) {
             TouristPackage touristPackage = ans.get();
             if (touristPackage.isStatus()) {
+                touristPackage.setName(name);
+                touristPackage.setDescript(descript);
+                touristPackage.setStartDate(startDate);
                 touristPackage.setPrice(price);
                 touristPackage.setProducts(products);
 
@@ -70,7 +76,7 @@ public class TouristPackageService {
         Optional<TouristPackage> ans = touristPackageRepository.findById(productCode);
 
         if (ans.isPresent()) {
-            TouristPackage touristPackage= ans.get();
+            TouristPackage touristPackage = ans.get();
             if (touristPackage.isStatus()) {
                 touristPackage.setStatus(false);
             }
@@ -78,7 +84,7 @@ public class TouristPackageService {
 
     }
 
-    private void validate(String name, String descript, Date startDate, Double price, List<Product> products)
+    private void validate(String name, String descript, Date startDate, List<Product> products)
             throws MyException {
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo");
@@ -89,11 +95,27 @@ public class TouristPackageService {
         if (startDate == null) {
             throw new MyException("La fecha inicial no puede ser nula");
         }
-        if (price == null || price.isNaN()) {
-            throw new MyException("El precio no puede ser nulo");
-        }
         if (products == null || products.isEmpty()) {
             throw new MyException("El paquete de productos no puede ser nulo o estar vacio");
+        }
+
+    }
+
+    private Double discount(List<Product> products) {
+
+        Double priceAux = 0.0;
+
+        if (products.size() > 1) {
+            for (Product product : products) {
+                priceAux += product.getPrice();
+
+            }
+            return priceAux = priceAux - priceAux*0.1;
+        }else{
+            for (Product product : products) {
+                priceAux = product.getPrice();
+            }
+            return priceAux;
         }
 
     }
