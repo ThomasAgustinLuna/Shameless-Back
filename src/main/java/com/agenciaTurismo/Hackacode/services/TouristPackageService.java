@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.agenciaTurismo.Hackacode.entities.Product;
 import com.agenciaTurismo.Hackacode.entities.TouristPackage;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
+import com.agenciaTurismo.Hackacode.repositories.ProductRepository;
 import com.agenciaTurismo.Hackacode.repositories.TouristPackageRepository;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
@@ -17,12 +18,26 @@ public class TouristPackageService {
 
     @Autowired
     private TouristPackageRepository touristPackageRepository;
+    @Autowired
+    private ProductRepository productRepository;
+
 
     @Transactional
     public void createTouristPackage(String name, String descript, Date startDate,
-            List<Product> products) throws MyException {
+            List<String> productsCodes) throws MyException {
 
-        validate(name, descript, startDate, products);
+        List<Product> products = new ArrayList<>();
+
+        for (String productCode : productsCodes) {
+            
+            Optional<Product> productOptional = productRepository.findById(productCode);
+            productOptional.ifPresent(products::add);
+            
+            
+        }
+        
+
+        validate(name, descript, startDate, productsCodes);
         TouristPackage touristPackage = new TouristPackage();
         touristPackage.setName(name);
         touristPackage.setDescript(descript);
@@ -44,11 +59,20 @@ public class TouristPackageService {
     }
 
     public void modifyTouristPackage(String productCode, String name, String descript, Date startDate, Double price,
-            List<Product> products) throws MyException {
+            List<String> productsCodes) throws MyException {
         if (productCode == null) {
             throw new MyException("El codigo de producto no puede ser nulo");
         }
-        validate(name, descript, startDate, products);
+        List<Product> products = new ArrayList<>();
+
+        for (String productC : productsCodes) {
+            
+            Optional<Product> productOptional = productRepository.findById(productC);
+            productOptional.ifPresent(products::add);
+            
+        }
+        validate(name, descript, startDate, productsCodes);
+        
         Optional<TouristPackage> ans = touristPackageRepository.findById(productCode);
 
         if (ans.isPresent()) {
@@ -84,7 +108,7 @@ public class TouristPackageService {
 
     }
 
-    private void validate(String name, String descript, Date startDate, List<Product> products)
+    private void validate(String name, String descript, Date startDate, List<String> products)
             throws MyException {
         if (name == null || name.isEmpty()) {
             throw new MyException("El nombre no puede ser nulo");
@@ -119,5 +143,7 @@ public class TouristPackageService {
         }
 
     }
+
+    
 
 }

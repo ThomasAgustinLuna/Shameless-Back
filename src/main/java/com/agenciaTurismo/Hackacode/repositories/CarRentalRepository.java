@@ -17,8 +17,5 @@ public interface CarRentalRepository extends JpaRepository<CarRental, String> {
     public List<CarRental> findByStatus(@Param("status") boolean status);
     
 
-    /*
-     * @Query("SELECT c FROM CarRental c  WHERE c.status = true")
-     * List<CarRental> findActiveEntities();
-     */
+   
 }

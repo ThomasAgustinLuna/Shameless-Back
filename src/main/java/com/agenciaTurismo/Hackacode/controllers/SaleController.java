@@ -33,6 +33,8 @@ public class SaleController {
         return ResponseEntity.ok(sales);
     }
 
+    
+
     @PostMapping("/registry")
     public String registry(@RequestBody SaleDto saleDto, ModelMap model) {
 
