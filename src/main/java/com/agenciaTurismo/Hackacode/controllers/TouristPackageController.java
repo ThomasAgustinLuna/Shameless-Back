@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
-import java.lang.reflect.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,29 +44,23 @@ public class TouristPackageController {
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         List<String> productsCodes = new ArrayList<String>();
+        productsCodes.add(touristPackageDto.getCar());
+        productsCodes.add(touristPackageDto.getHotel());
+        productsCodes.add(touristPackageDto.getEvent());
+        productsCodes.add(touristPackageDto.getExcursion());
+        productsCodes.add(touristPackageDto.getTicket());
+
         System.out.println(touristPackageDto.getDescript());
         System.out.println(touristPackageDto.getName());
-        System.out.println(touristPackageDto.getPc1());
-        System.out.println(touristPackageDto.getPc2());
-        System.out.println(touristPackageDto.getPc3());
-        System.out.println(touristPackageDto.getPc4());
-        System.out.println(touristPackageDto.getPc5());
+        System.out.println(touristPackageDto.getCar());
+        System.out.println(touristPackageDto.getHotel());
+        System.out.println(touristPackageDto.getEvent());
+        System.out.println(touristPackageDto.getExcursion());
+        System.out.println(touristPackageDto.getTicket());
         System.out.println(touristPackageDto.getStartDate());
         System.out.println(touristPackageDto.getPrice());
 
-        for (int i = 1; i <= 5; i++) {
-            try {
-
-                String fieldName = "Pc" + i;
-                Field field = touristPackageDto.getClass().getDeclaredField(fieldName);
-                field.setAccessible(true);
-                String pcValue = (String) field.get(touristPackageDto);
-
-                productsCodes.add(pcValue);
-            } catch (NoSuchFieldException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
+       
         
         try {
 
