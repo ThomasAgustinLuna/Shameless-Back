@@ -1,10 +1,11 @@
 package com.agenciaTurismo.Hackacode.dtos;
 
 public class TouristPackageDto {
+
+    private String productCode;
     private String name;
     private String descript;
     private String startDate;
-    private Double price;
     private String car;
     private String hotel;
     private String event;
@@ -14,15 +15,16 @@ public class TouristPackageDto {
 
 
 
+
     public TouristPackageDto() {
     }
 
 
-    public TouristPackageDto(String name, String descript, String startDate, Double price, String car, String hotel, String event, String excursion, String ticket) {
+    public TouristPackageDto(String productCode, String name, String descript, String startDate, String car, String hotel, String event, String excursion, String ticket) {
+        this.productCode = productCode;
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
-        this.price = price;
         this.car = car;
         this.hotel = hotel;
         this.event = event;
@@ -30,6 +32,14 @@ public class TouristPackageDto {
         this.ticket = ticket;
     }
 
+
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
 
     public String getName() {
         return this.name;
@@ -53,14 +63,6 @@ public class TouristPackageDto {
 
     public void setStartDate(String startDate) {
         this.startDate = startDate;
-    }
-
-    public Double getPrice() {
-        return this.price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public String getCar() {
@@ -102,6 +104,7 @@ public class TouristPackageDto {
     public void setTicket(String ticket) {
         this.ticket = ticket;
     }
+
     
     
 }

@@ -13,13 +13,15 @@ public class EmployeeDto {
     private String email;
     private PositionType position;
     private Double salary;
+    private String employeeId;
+
 
 
     public EmployeeDto() {
     }
 
 
-    public EmployeeDto(String name, String surname, String adress, Integer dni, String birthDate, String nationality, String phoneNumber, String email, PositionType position, Double salary) {
+    public EmployeeDto(String name, String surname, String adress, Integer dni, String birthDate, String nationality, String phoneNumber, String email, PositionType position, Double salary, String employeeId) {
         this.name = name;
         this.surname = surname;
         this.adress = adress;
@@ -30,6 +32,7 @@ public class EmployeeDto {
         this.email = email;
         this.position = position;
         this.salary = salary;
+        this.employeeId = employeeId;
     }
 
 
@@ -113,5 +116,13 @@ public class EmployeeDto {
         this.salary = salary;
     }
 
+    public String getEmployeeId() {
+        return this.employeeId;
+    }
+
+    public void setEmployeeId(String employeeId) {
+        this.employeeId = employeeId;
+    }
+    
 
 }

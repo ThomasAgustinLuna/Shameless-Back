@@ -8,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -47,10 +49,7 @@ public class EmployeeController {
             Date birthDate2 = dateFormat.parse(employeeDto.getBirthDate());
 
             try {
-                employeeService.createEmployee(employeeDto.getName(), employeeDto.getSurname(),
-                        employeeDto.getAdress(), employeeDto.getDni(), birthDate2, employeeDto.getNationality(),
-                        employeeDto.getEmail(),
-                        employeeDto.getPhoneNumber(), employeeDto.getPosition(), employeeDto.getSalary());
+                employeeService.createEmployee(employeeDto.getName(), employeeDto.getSurname(),employeeDto.getAdress(), employeeDto.getDni(), birthDate2, employeeDto.getNationality(),employeeDto.getPhoneNumber(),employeeDto.getEmail(), employeeDto.getPosition(), employeeDto.getSalary());
                 model.put("exito", "El empleado fue cargado correctamente");
 
             } catch (MyException ex) {
@@ -64,6 +63,46 @@ public class EmployeeController {
 
             return "redirect:http://localhost:5173/admin/employee";
 
+        }
+
+        return "redirect:http://localhost:5173/admin";
+    }
+
+    @PutMapping("/modify")
+    public String modify(@RequestBody EmployeeDto employeeDto, ModelMap model) throws MyException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+
+            Date birthDate2 = dateFormat.parse(employeeDto.getBirthDate());
+            
+            try {
+                employeeService.modifyEmployee(employeeDto.getEmployeeId(), employeeDto.getName(),employeeDto.getSurname(),employeeDto.getAdress(),employeeDto.getDni(),birthDate2,employeeDto.getNationality(),employeeDto.getPhoneNumber(),employeeDto.getEmail(),employeeDto.getPosition(), employeeDto.getSalary());
+                model.put("exito", "El empleado fue cargado exitosamente");
+            } catch (MyException ex) {
+                model.put("error", ex.getMessage());
+                return "redirect:http://localhost:5173/admin/employee";
+            }
+
+        } catch (ParseException ex) {
+            model.put("error", "La Fecha no puede ser nula");
+            return "redirect:http://localhost:5173/admin/employee";
+
+        }
+
+        return "redirect:http://localhost:5173/admin";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@RequestBody EmployeeDto employeeDto, ModelMap model) throws MyException {
+
+        try {
+            employeeService.deleteEmployee(employeeDto.getEmployeeId());
+            model.put("exito", "El empleado fue borrado exitosamente");
+        } catch (MyException ex) {
+            model.put("error", ex.getMessage());
+            return "redirect:http://localhost:5173/admin/car-rental";
         }
 
         return "redirect:http://localhost:5173/admin";

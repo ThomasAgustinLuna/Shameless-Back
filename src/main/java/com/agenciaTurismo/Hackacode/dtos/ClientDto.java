@@ -10,13 +10,15 @@ public class ClientDto {
     private String nationality;
     private String phoneNumber;
     private String email;
+    private String clientId;
+
 
 
     public ClientDto() {
     }
 
 
-    public ClientDto(String name, String surname, String adress, Integer dni, String birthDate, String nationality, String phoneNumber, String email) {
+    public ClientDto(String name, String surname, String adress, Integer dni, String birthDate, String nationality, String phoneNumber, String email, String clientId) {
         this.name = name;
         this.surname = surname;
         this.adress = adress;
@@ -25,6 +27,7 @@ public class ClientDto {
         this.nationality = nationality;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.clientId = clientId;
     }
 
 
@@ -91,6 +94,16 @@ public class ClientDto {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getClientId() {
+        return this.clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+    
+    
 
 
 }

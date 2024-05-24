@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,7 +31,7 @@ public class TouristPackageController {
     @GetMapping("/register")
     public String register() {
 
-        return "redirect:http://localhost:5173/admin/tourist-package";
+        return "redirect:http://localhost:5173/admin/packages";
     }
 
     @GetMapping("/get-tourist-package")
@@ -50,15 +52,7 @@ public class TouristPackageController {
         productsCodes.add(touristPackageDto.getExcursion());
         productsCodes.add(touristPackageDto.getTicket());
 
-        System.out.println(touristPackageDto.getDescript());
-        System.out.println(touristPackageDto.getName());
-        System.out.println(touristPackageDto.getCar());
-        System.out.println(touristPackageDto.getHotel());
-        System.out.println(touristPackageDto.getEvent());
-        System.out.println(touristPackageDto.getExcursion());
-        System.out.println(touristPackageDto.getTicket());
-        System.out.println(touristPackageDto.getStartDate());
-        System.out.println(touristPackageDto.getPrice());
+       
 
        
         
@@ -73,17 +67,65 @@ public class TouristPackageController {
                 model.put("exito", "El paquete fue cargado correctamente");
             } catch (MyException ex) {
                 model.put("error", ex.getMessage());
-                return "redirect:http://localhost:5173/admin/tourist-package";
+                return "redirect:http://localhost:5173/admin/packages";
             }
 
         } catch (ParseException e) {
             e.printStackTrace();
 
-            return "redirect:http://localhost:5173/admin/tourist-package";
+            return "redirect:http://localhost:5173/admin/packages";
 
         }
         return "redirect:http://localhost:5173/admin";
 
     }
+
+    @PutMapping("/modify")
+    public String modify(@RequestBody TouristPackageDto touristPackageDto, ModelMap model) throws MyException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        List<String> productsCodes = new ArrayList<String>();
+        productsCodes.add(touristPackageDto.getCar());
+        productsCodes.add(touristPackageDto.getHotel());
+        productsCodes.add(touristPackageDto.getEvent());
+        productsCodes.add(touristPackageDto.getExcursion());
+        productsCodes.add(touristPackageDto.getTicket());
+
+        try {
+
+            Date startDateObj = dateFormat.parse(touristPackageDto.getStartDate());
+           
+            try {
+                touristPackageService.modifyTouristPackage(touristPackageDto.getProductCode(),touristPackageDto.getName(),touristPackageDto.getDescript(),startDateObj,productsCodes);
+                model.put("exito", "La excursion fue cargada correctamente");
+            } catch (MyException ex) {
+                model.put("error", ex.getMessage());
+                return "redirect:http://localhost:5173/admin/hotel-per-night";
+            }
+
+        } catch (ParseException ex) {
+            model.put("error", "La Fecha no puede ser nula");
+            return "redirect:http://localhost:5173/admin/hotel-per-night";
+
+        }
+
+        return "redirect:http://localhost:5173/admin";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@RequestBody TouristPackageDto touristPackageDto, ModelMap model) throws MyException {
+
+        try {
+            touristPackageService.deleteTouristPackage(touristPackageDto.getProductCode());
+            model.put("exito", "El paquete fue borrado exitosamente");
+        } catch (MyException ex) {
+            model.put("error", ex.getMessage());
+            return "redirect:http://localhost:5173/admin/car-rental";
+        }
+
+        return "redirect:http://localhost:5173/admin";
+    }
+
+
 
 }

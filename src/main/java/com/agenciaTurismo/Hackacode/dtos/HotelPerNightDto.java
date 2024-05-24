@@ -1,6 +1,8 @@
 package com.agenciaTurismo.Hackacode.dtos;
 
 public class HotelPerNightDto {
+
+    private String productCode;
     private String name;
     private String descript;
     private String startDate;
@@ -9,11 +11,13 @@ public class HotelPerNightDto {
     private Integer numbOfRooms;
 
 
+
     public HotelPerNightDto() {
     }
 
 
-    public HotelPerNightDto(String name, String descript, String startDate, Double price, String ubication, Integer numbOfRooms) {
+    public HotelPerNightDto(String productCode, String name, String descript, String startDate, Double price, String ubication, Integer numbOfRooms) {
+        this.productCode = productCode;
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
@@ -22,6 +26,13 @@ public class HotelPerNightDto {
         this.numbOfRooms = numbOfRooms;
     }
 
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
 
     public String getName() {
         return this.name;
@@ -71,4 +82,5 @@ public class HotelPerNightDto {
         this.numbOfRooms = numbOfRooms;
     }
 
+    
 }

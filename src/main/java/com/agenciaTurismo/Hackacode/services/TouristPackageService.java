@@ -58,7 +58,7 @@ public class TouristPackageService {
         return touristPackages;
     }
 
-    public void modifyTouristPackage(String productCode, String name, String descript, Date startDate, Double price,
+    public void modifyTouristPackage(String productCode, String name, String descript, Date startDate,
             List<String> productsCodes) throws MyException {
         if (productCode == null) {
             throw new MyException("El codigo de producto no puede ser nulo");
@@ -81,7 +81,6 @@ public class TouristPackageService {
                 touristPackage.setName(name);
                 touristPackage.setDescript(descript);
                 touristPackage.setStartDate(startDate);
-                touristPackage.setPrice(price);
                 touristPackage.setProducts(products);
 
                 touristPackageRepository.save(touristPackage);

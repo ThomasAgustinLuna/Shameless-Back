@@ -1,6 +1,7 @@
 package com.agenciaTurismo.Hackacode.dtos;
 
 public class EventTicketsDto {
+    private String productCode;
     private String name;
     private String descript;
     private String startDate;
@@ -9,11 +10,13 @@ public class EventTicketsDto {
     private Double duration;
 
 
+
     public EventTicketsDto() {
     }
 
 
-    public EventTicketsDto(String name, String descript, String startDate, Double price, String ubication, Double duration) {
+    public EventTicketsDto(String productCode, String name, String descript, String startDate, Double price, String ubication, Double duration) {
+        this.productCode = productCode;
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
@@ -22,6 +25,14 @@ public class EventTicketsDto {
         this.duration = duration;
     }
 
+
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
 
     public String getName() {
         return this.name;
@@ -70,5 +81,6 @@ public class EventTicketsDto {
     public void setDuration(Double duration) {
         this.duration = duration;
     }
+    
 
 }

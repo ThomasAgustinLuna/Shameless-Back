@@ -28,7 +28,7 @@ public class CarRentalDto {
     public String getProductCode() {
         return this.productCode;
     }
-
+    
     public void setProductCode(String productCode) {
         this.productCode = productCode;
     }

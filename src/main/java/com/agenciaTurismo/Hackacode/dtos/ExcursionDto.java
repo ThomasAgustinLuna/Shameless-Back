@@ -1,6 +1,7 @@
 package com.agenciaTurismo.Hackacode.dtos;
 
 public class ExcursionDto {
+    private String productCode;
     private String name;
     private String descript;
     private String startDate;
@@ -10,10 +11,13 @@ public class ExcursionDto {
     private String origin;
 
 
+
     public ExcursionDto() {
     }
 
-    public ExcursionDto(String name, String descript, String startDate, Double price, String destination, Double duration, String origin) {
+
+    public ExcursionDto(String productCode, String name, String descript, String startDate, Double price, String destination, Double duration, String origin) {
+        this.productCode = productCode;
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
@@ -23,6 +27,14 @@ public class ExcursionDto {
         this.origin = origin;
     }
 
+
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
 
     public String getName() {
         return this.name;
@@ -79,7 +91,7 @@ public class ExcursionDto {
     public void setOrigin(String origin) {
         this.origin = origin;
     }
-
+    
 
 
 }

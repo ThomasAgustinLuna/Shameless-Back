@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -59,6 +61,46 @@ public class ClientController {
 
             return "redirect:http://localhost:5173/admin/client";
 
+        }
+
+        return "redirect:http://localhost:5173/admin";
+    }
+
+    @PutMapping("/modify")
+    public String modify(@RequestBody ClientDto clientDto, ModelMap model) throws MyException {
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        try {
+
+            Date birthDate2 = dateFormat.parse(clientDto.getBirthDate());
+            
+            try {
+                clientService.modifyClient(clientDto.getClientId(), clientDto.getName(),clientDto.getSurname(),clientDto.getAdress(),clientDto.getDni(),birthDate2,clientDto.getNationality(),clientDto.getPhoneNumber(),clientDto.getEmail());
+                model.put("exito", "El cliente fue cargado exitosamente");
+            } catch (MyException ex) {
+                model.put("error", ex.getMessage());
+                return "redirect:http://localhost:5173/admin/client";
+            }
+
+        } catch (ParseException ex) {
+            model.put("error", "La Fecha no puede ser nula");
+            return "redirect:http://localhost:5173/admin/client";
+
+        }
+
+        return "redirect:http://localhost:5173/admin";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@RequestBody ClientDto clientDto, ModelMap model) throws MyException {
+
+        try {
+            clientService.deleteClient(clientDto.getClientId());
+            model.put("exito", "el cliente fue borrado exitosamente.");
+        } catch (MyException ex) {
+            model.put("error", ex.getMessage());
+            return "redirect:http://localhost:5173/admin/car-rental";
         }
 
         return "redirect:http://localhost:5173/admin";

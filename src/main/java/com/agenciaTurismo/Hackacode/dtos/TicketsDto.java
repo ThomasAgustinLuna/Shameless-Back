@@ -3,6 +3,7 @@ package com.agenciaTurismo.Hackacode.dtos;
 import com.agenciaTurismo.Hackacode.enums.TicketType;
 
 public class TicketsDto {
+    private String productCode;
     private String name;
     private String descript;
     private String startDate;
@@ -12,12 +13,14 @@ public class TicketsDto {
     private String destination;
 
 
+    
+
     public TicketsDto() {
     }
 
 
-
-    public TicketsDto(String name, String descript, String startDate, Double price, TicketType ticketType, String origin, String destination) {
+    public TicketsDto(String productCode, String name, String descript, String startDate, Double price, TicketType ticketType, String origin, String destination) {
+        this.productCode = productCode;
         this.name = name;
         this.descript = descript;
         this.startDate = startDate;
@@ -27,6 +30,14 @@ public class TicketsDto {
         this.destination = destination;
     }
 
+
+    public String getProductCode() {
+        return this.productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
 
     public String getName() {
         return this.name;
@@ -76,7 +87,6 @@ public class TicketsDto {
         this.origin = origin;
     }
 
-
     public String getDestination() {
         return this.destination;
     }
@@ -84,5 +94,6 @@ public class TicketsDto {
     public void setDestination(String destination) {
         this.destination = destination;
     }
+
 
 }

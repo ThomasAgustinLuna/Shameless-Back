@@ -10,6 +10,7 @@ import com.agenciaTurismo.Hackacode.dtos.CarRentalDto;
 import com.agenciaTurismo.Hackacode.entities.CarRental;
 import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.CarRentalService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,10 +26,8 @@ public class CarRentalController {
     @Autowired
     private CarRentalService carRentalService;
 
-    
     @GetMapping("/register")
     public String register() {
-        
 
         return "redirect:http://localhost:5173/admin/car-rental";
     }
@@ -36,11 +35,9 @@ public class CarRentalController {
     @GetMapping("/get-cars")
     @ResponseBody
     public ResponseEntity<List<CarRental>> getCars() {
-        List <CarRental> cars=carRentalService.ListCarRentals();
+        List<CarRental> cars = carRentalService.ListCarRentals();
         return ResponseEntity.ok(cars);
     }
-
-    
 
     @PostMapping("/registry")
     public String registry(@RequestBody CarRentalDto carRentalDto, ModelMap model) throws MyException {
@@ -52,7 +49,8 @@ public class CarRentalController {
             Date startDateObj = dateFormat.parse(carRentalDto.getStartDate());
             Date deadlineDateObj = dateFormat.parse(carRentalDto.getDeadlineDate());
             try {
-                carRentalService.createCarRental(carRentalDto.getName(),carRentalDto.getDescript(), startDateObj,carRentalDto.getPrice(),carRentalDto.getCarType(), deadlineDateObj);
+                carRentalService.createCarRental(carRentalDto.getName(), carRentalDto.getDescript(), startDateObj,
+                        carRentalDto.getPrice(), carRentalDto.getCarType(), deadlineDateObj);
                 model.put("exito", "La renta del auto fue cargada correctamente");
             } catch (MyException ex) {
                 model.put("error", ex.getMessage());
@@ -78,7 +76,9 @@ public class CarRentalController {
             Date startDateObj = dateFormat.parse(carRentalDto.getStartDate());
             Date deadlineDateObj = dateFormat.parse(carRentalDto.getDeadlineDate());
             try {
-                carRentalService.modifyCarRental(carRentalDto.getProductCode(),carRentalDto.getName(),carRentalDto.getDescript(), startDateObj,carRentalDto.getPrice(),carRentalDto.getCarType(), deadlineDateObj);
+                carRentalService.modifyCarRental(carRentalDto.getProductCode(), carRentalDto.getName(),
+                        carRentalDto.getDescript(), startDateObj, carRentalDto.getPrice(), carRentalDto.getCarType(),
+                        deadlineDateObj);
                 model.put("exito", "La renta del auto fue cargada correctamente");
             } catch (MyException ex) {
                 model.put("error", ex.getMessage());
@@ -89,6 +89,20 @@ public class CarRentalController {
             model.put("error", "La Fecha no puede ser nula");
             return "redirect:http://localhost:5173/admin/car-rental";
 
+        }
+
+        return "redirect:http://localhost:5173/admin";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String delete(@RequestBody CarRentalDto carRentalDto, ModelMap model) throws MyException {
+
+        try {
+            carRentalService.deleteCarRental(carRentalDto.getProductCode());
+            model.put("exito", "La renta fue borrada exitosamente");
+        } catch (MyException ex) {
+            model.put("error", ex.getMessage());
+            return "redirect:http://localhost:5173/admin/car-rental";
         }
 
         return "redirect:http://localhost:5173/admin";
