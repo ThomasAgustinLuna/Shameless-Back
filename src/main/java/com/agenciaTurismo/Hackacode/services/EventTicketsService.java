@@ -44,6 +44,15 @@ public class EventTicketsService {
         return eventTickets;
     }
 
+    public EventTickets GetEventTicket(String id) {
+
+        Optional<EventTickets> eventTicket = eventTicketsRepository.findById(id);
+
+        eventTicket = eventTicketsRepository.findById(id);
+
+        return eventTicket.orElse(null);
+    }
+
     public void modifyEventTickets(String productCode, String name, String descript, Date startDate, Double price,
             String ubication, Double duration) throws MyException {
 

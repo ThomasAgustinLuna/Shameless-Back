@@ -51,6 +51,15 @@ public class EmployeeService {
         return employees;
     }
 
+    public Employee GetEmployee(String id) {
+
+        Optional<Employee> employee = employeeRepository.findById(id);
+
+        employee = employeeRepository.findById(id);
+
+        return employee.orElse(null);
+    }
+
     public void modifyEmployee(String employeeId, String name, String surname, String adress, Integer dni,
             Date bithDate, String nationality, String phoneNumber, String email, PositionType position, Double salary)
             throws MyException {

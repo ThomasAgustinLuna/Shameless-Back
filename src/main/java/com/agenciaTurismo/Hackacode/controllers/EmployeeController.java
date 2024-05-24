@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +39,17 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> getCars() {
         List <Employee> employees=employeeService.ListEmployees();
         return ResponseEntity.ok(employees);
+    }
+
+    @GetMapping("/get-employee/{id}")
+    @ResponseBody
+    public ResponseEntity<Employee> getEmployeeById(@PathVariable String id) {
+        Employee employee = employeeService.GetEmployee(id);
+        if (employee != null) {
+            return ResponseEntity.ok(employee);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/registry")

@@ -45,6 +45,15 @@ public class TicketsService {
         return tickets;
     }
 
+    public Tickets GetTicket(String id) {
+
+        Optional<Tickets> tickets = ticketsRepository.findById(id);
+
+        tickets = ticketsRepository.findById(id);
+
+        return tickets.orElse(null);
+    }
+
     public void modifyTickets(String productCode, String name, String descript, Date startDate, Double price,
             TicketType ticketType, String origin, String destination) throws MyException {
         if (productCode == null) {

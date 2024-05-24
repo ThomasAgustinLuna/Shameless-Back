@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,17 @@ public class ClientController {
     public ResponseEntity<List<Client>> getCars() {
         List <Client> clients=clientService.ListClients();
         return ResponseEntity.ok(clients);
+    }
+
+    @GetMapping("/get-client/{id}")
+    @ResponseBody
+    public ResponseEntity<Client> getClientById(@PathVariable String id) {
+        Client client = clientService.GetClient(id);
+        if (client != null) {
+            return ResponseEntity.ok(client);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/registry")

@@ -12,6 +12,7 @@ import com.agenciaTurismo.Hackacode.exceptions.MyException;
 import com.agenciaTurismo.Hackacode.services.CarRentalService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,17 @@ public class CarRentalController {
     public ResponseEntity<List<CarRental>> getCars() {
         List<CarRental> cars = carRentalService.ListCarRentals();
         return ResponseEntity.ok(cars);
+    }
+
+    @GetMapping("/get-car/{id}")
+    @ResponseBody
+    public ResponseEntity<CarRental> getCarById(@PathVariable String id) {
+        CarRental car = carRentalService.GetCarRental(id);
+        if (car != null) {
+            return ResponseEntity.ok(car);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/registry")

@@ -33,6 +33,7 @@ com\agenciaTurismo\Hackacode\controllers\ExcursionController.class
 com\agenciaTurismo\Hackacode\dtos\EmployeeDto.class
 com\agenciaTurismo\Hackacode\dtos\HotelPerNightDto.class
 com\agenciaTurismo\Hackacode\HackacodeApplication.class
+com\agenciaTurismo\Hackacode\repositories\ProductRepository.class
 com\agenciaTurismo\Hackacode\services\TicketsService.class
 com\agenciaTurismo\Hackacode\controllers\EmployeeController.class
 com\agenciaTurismo\Hackacode\services\SaleService$1.class

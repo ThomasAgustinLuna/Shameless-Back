@@ -43,6 +43,16 @@ public class HotelPerNightService {
         return hotelPerNights;
     }
 
+    public HotelPerNight GetHotel(String id) {
+
+        Optional<HotelPerNight> hotel = hotelPerNightRepository.findById(id);
+
+        hotel = hotelPerNightRepository.findById(id);
+
+        return hotel.orElse(null);
+    }
+
+
     public void modifyHotel(String productCode, String name, String descript, Date startDate, Double price,
             String ubication, Integer numbOfRooms) throws MyException {
         if (productCode == null) {

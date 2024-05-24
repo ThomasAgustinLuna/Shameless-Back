@@ -45,6 +45,15 @@ public class ExcursionService {
         return excursions;
     }
 
+    public Excursion GetExcursion(String id) {
+
+        Optional<Excursion> excursion = excursionRepository.findById(id);
+
+        excursion = excursionRepository.findById(id);
+
+        return excursion.orElse(null);
+    }
+
     public void modifyExcursion(String productCode, String name, String descript, Date startDate, Double price,
             String destination, Double duration,String origin) throws MyException {
         if (productCode == null) {

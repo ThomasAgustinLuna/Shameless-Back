@@ -44,6 +44,15 @@ public class CarRentalService {
         return carRentals;
     }
 
+    public CarRental GetCarRental(String id) {
+
+        Optional<CarRental> carRental = carRentalRepository.findById(id);
+
+        carRental = carRentalRepository.findById(id);
+
+        return carRental.orElse(null);
+    }
+
     public void modifyCarRental(String productCode, String name, String descript, Date startDate, Double price,
             String carType, Date deadlineDate) throws MyException {
         if (productCode == null) {

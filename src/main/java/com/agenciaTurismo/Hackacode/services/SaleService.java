@@ -72,6 +72,15 @@ public class SaleService {
         return sales;
     }
 
+    public Sale GetSale(Long id) {
+
+        Optional<Sale> sale = saleRepository.findById(id);
+
+        sale = saleRepository.findById(id);
+
+        return sale.orElse(null);
+    }
+
     public void modifySale(Long saleNumber, String clientId, String employeeId, PaymentType paymentType,
             String productCode) throws MyException {
         if (saleNumber == null) {

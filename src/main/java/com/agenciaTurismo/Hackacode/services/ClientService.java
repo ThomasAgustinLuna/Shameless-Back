@@ -46,6 +46,15 @@ public class ClientService {
         return clients;
     }
 
+    public Client GetClient(String id) {
+
+        Optional<Client> client = clientRepository.findById(id);
+
+        client = clientRepository.findById(id);
+
+        return client.orElse(null);
+    }
+
     public void modifyClient(String clientId, String name, String surname, String adress, Integer dni, Date birthDate,
             String nationality, String phoneNumber, String email) throws MyException {
 

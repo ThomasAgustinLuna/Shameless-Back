@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,6 +38,17 @@ public class EventTicketsController {
     public ResponseEntity<List<EventTickets>> getCars() {
         List <EventTickets> eventTickets=eventTicketsService.ListEventTickets();
         return ResponseEntity.ok(eventTickets);
+    }
+
+    @GetMapping("/get-event-ticket/{id}")
+    @ResponseBody
+    public ResponseEntity<EventTickets> getEventTicketById(@PathVariable String id) {
+        EventTickets eventTickets = eventTicketsService.GetEventTicket(id);
+        if (eventTickets != null) {
+            return ResponseEntity.ok(eventTickets);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/registry")

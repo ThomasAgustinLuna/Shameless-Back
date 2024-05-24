@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,6 +40,17 @@ public class TouristPackageController {
     public ResponseEntity<List<TouristPackage>> getCars() {
         List<TouristPackage> touristPackages = touristPackageService.ListTouristPackages();
         return ResponseEntity.ok(touristPackages);
+    }
+
+    @GetMapping("/get-tourist-package/{id}")
+    @ResponseBody
+    public ResponseEntity<TouristPackage> getTouristPackageById(@PathVariable String id) {
+        TouristPackage touristPackage = touristPackageService.GetTouristPackage(id);
+        if (touristPackage != null) {
+            return ResponseEntity.ok(touristPackage);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/registry")

@@ -58,6 +58,15 @@ public class TouristPackageService {
         return touristPackages;
     }
 
+    public TouristPackage GetTouristPackage(String id) {
+
+        Optional<TouristPackage> touristPackage = touristPackageRepository.findById(id);
+
+        touristPackage = touristPackageRepository.findById(id);
+
+        return touristPackage.orElse(null);
+    }
+
     public void modifyTouristPackage(String productCode, String name, String descript, Date startDate,
             List<String> productsCodes) throws MyException {
         if (productCode == null) {
